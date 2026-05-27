@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Zip Function
+      - name: Create ZIP Package
         run: zip -r function.zip .
 
       - name: Configure AWS Credentials
@@ -31,6 +31,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Update AWS Lambda
-        run: aws lambda update-function-code --function-name megastore-busqueda --zip-file fileb://function.zip
-        
+      - name: Deploy to AWS Lambda
+        run: |
+          aws lambda update-function-code \
+          --function-name mega-taller-busqueda \
+          --zip-file fileb://function.zip
+          
